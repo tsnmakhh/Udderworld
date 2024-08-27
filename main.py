@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((1300,720))
+screen = pygame.display.set_mode((1300,72))
 pygame.display.set_caption('UDDERWORLD')
 
 # Load the background image
