@@ -12,8 +12,10 @@ background_image = pygame.image.load('background.png').convert()
 orange = (255, 69, 0)
 
 # LOOPS
-running = True
+
 mainMenu_loop = True
+login_loop = False
+controls_loop = False
 
 # TEXT FONT AND TEXT DEFINITIONS
 subtitle_font = pygame.font.Font('pixelFont.ttf', 80)
@@ -55,21 +57,13 @@ class Button(Text):
 login_button = Button('LOGIN', 650, 300, orange, button_font)
 controls_button = Button('CONTROLS', 650, 400, orange, button_font)
 exit_button = Button('EXIT', 650, 500, orange, button_font)
+login_subtitle = Text('LOGIN', 650, 275, orange, subtitle_font)
+create_account_button = Button('create an account', 650, 550, orange, button_font)
+create_account_subtitle = Text('CREATE AN ACCOUNT', 650, 275, orange, subtitle_font)
 #mainMenu_subtitle = Text('MENU', 650, 275, orange, subtitle_font)
 
 # Game loop
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        # Correct key checking
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_ESCAPE]:  # Check if the ESC key is pressed
-            running = False
-        # Check if the exit button was clicked
-        if exit_button.check_if_clicked(event):
-            running = False
-
+while mainMenu_loop:
     # Fill the background
     screen.blit(background_image, (0, 0))
 
@@ -78,6 +72,40 @@ while running:
     controls_button.draw()
     exit_button.draw()
     #mainMenu_subtitle.draw()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            mainMenu_loop = False
+        # Correct key checking
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:  # Check if the ESC key is pressed
+            mainMenu_loop = False
+        # Check if the exit button was clicked
+        if exit_button.check_if_clicked(event):
+            mainMenu_loop = False
+        if login_button.check_if_clicked(event):
+            mainMenu_loop = False
+            login_loop = True
+    
+    pygame.display.update()
+
+while login_loop:
+    screen.blit(background_image, (0, 0))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            login_loop = False
+            mainMenu_loop = False
+
+    login_subtitle.draw()
+    # (add user and pass box in this screen)
+    create_account_button.draw()
+
+    pygame.display.update()
+    clock.tick(60)
+        #if
+
+# CREATE ACCOUNT LOOP HERE
 
     # Update the display
     pygame.display.update()
